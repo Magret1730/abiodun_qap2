@@ -1,0 +1,1 @@
+This repository contains the solutions to QAP2 Javascript (second semester) course at Keyin College.
