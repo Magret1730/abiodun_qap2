@@ -13,11 +13,6 @@
       referrerpolicy="no-referrer"
     />
     <script src="./script.js" defer></script>
-    <style>
-        input {width: 40%; border: "1px solid red";}
-        button {cursor: pointer; border: "1px solid red";}
-        #videoCheckbox {display: inline; border: "1px solid red";}
-    </style>
 </head>
 <body>
     <h1>QAP 2 Javascript</h1>
@@ -32,7 +27,7 @@
     <!-- Task Two -->
     <section>
         <h3>Task Two - Video Generation</h3>
-        <input type="text" name="video" id="videoInput" placeholder="Input video url and width">
+        <input type="text" name="video" id="videoInput" placeholder="Enter Video URL and Width">
         <button id="videoButton">Generate Video</button>
         <div id="videoDisplay"></div>
     </section>
@@ -52,12 +47,26 @@
         <button id="dateObjectButton">Convert Date</button>
         <div id="dateObjectDisplay"></div>
      </section>
-
+     
      <!-- Task 5: Parse Geographic Coordinates
-    Create an input field where users enter coordinates in various formats, such as "42.9755,-77.4369" or "[-77.4369, 42.9755]".
-    On clicking a button, validate and standardize the format to "(lat, lng)" and display it. -->
+     Create an input field where users enter coordinates in various formats, such as "42.9755,-77.4369" or "[-77.4369, 42.9755]".
+     On clicking a button, validate and standardize the format to "(lat, lng)" and display it. -->
+     
+     <!-- Task Five -->
 
-    <!-- Task Five -->
-
+     <section>
+         <h3>Task Five - Parse Geographic Coordinates</h3>
+         <input type="text" name="geoCord" id="geoCordInput" placeholder="Enter Geographic Coordinates">
+         <button id="geoCordButton">Convert</button>
+         <div id="geoCordDisplay"></div>
+    </section>
+        
+    <!-- Task Six -->
+    <section>
+        <h3>Task Six - Parse List Geographic Coordinates</h3>
+        <input type="text" name="geoCordList" id="geoCordListInput" placeholder="Enter Geographic Coordinates">
+        <button id="geoCordListButton">Convert</button>
+        <div id="geoCordListDisplay"></div>
+    </section>
 </body>
 </html>

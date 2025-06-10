@@ -6,7 +6,7 @@
  *
  *      Name: Abiodun Magret Oyedele
  *      Date: 8/6/2025
- *      Time: 12:45pm
+ *      Time: 12:45pm 
  */
 
 // alert("Good");
@@ -312,63 +312,135 @@ dateObjectButton.addEventListener("click", () => {
     document.querySelector("#dateObjectDisplay").innerHTML = result;
 });
   
-  /*******************************************************************************
-   * Problem 5: parse a geographic coordinate
-   *
-   * Coordinates are defined as numeric, decimal values of Longitude and Latitude.
-   * A example, let's suppose the Keyin College St.John's campus is located at:
-   *
-   * Longitude: -77.4369 (negative number means West)
-   * Latitude: 42.9755 (positive number means North)
-   *
-   * A dataset includes thousands of geographic coordinates, stored as strings.
-   * However, over the years, different authors have used slightly different formats.
-   * All of the following are valid and need to be parsed:
-   *
-   * 1. "42.9755,-77.4369" NOTE: no space
-   * 4. "[-77.4369, 42.9755]" NOTE: the space, as well as lat/lng values are reversed
-   *
-   * Valid Longitude values are decimal numbers between -180 and 180.
-   *
-   * Valid Latitude values are decimal numbers between -90 and 90.
-   *
-   * Parse the value and reformat it into the form: "(lat, lng)"
-   *
-   ******************************************************************************/
+/*******************************************************************************
+ * Problem 5: parse a geographic coordinate
+ *
+ * Coordinates are defined as numeric, decimal values of Longitude and Latitude.
+ * A example, let's suppose the Keyin College St.John's campus is located at:
+ *
+ * Longitude: -77.4369 (negative number means West)
+ * Latitude: 42.9755 (positive number means North)
+ *
+ * A dataset includes thousands of geographic coordinates, stored as strings.
+ * However, over the years, different authors have used slightly different formats.
+ * All of the following are valid and need to be parsed:
+ *
+ * 1. "42.9755,-77.4369" NOTE: no space
+ * 4. "[-77.4369, 42.9755]" NOTE: the space, as well as lat/lng values are reversed
+ *
+ * Valid Longitude values are decimal numbers between -180 and 180.
+ *
+ * Valid Latitude values are decimal numbers between -90 and 90.
+ *
+ * Parse the value and reformat it into the form: "(lat, lng)"
+ *
+ ******************************************************************************/
+
+function normalizeCoord(value) {
+    const newValue = value.trim().replace(/[\[\]\s]/g, "").split(",");
+
+    let firstValue = parseFloat(newValue[0]);
+    let secondValue = parseFloat(newValue[1]);
+
+    let lat;
+    let long;
+
+    if (firstValue >= -90 && firstValue <= 90) {
+        lat = firstValue;
+        long = secondValue;
+
+        return (`(${lat}, ${long})`);
+    } else if (firstValue >= -180 && firstValue <= 180) {
+        lat = secondValue;
+        long = firstValue;
+
+        return (`(${lat}, ${long})`);
+    } else {
+        return null;
+    }
+}
+
+const geoCordbutton = document.querySelector("#geoCordButton");
+geoCordbutton.addEventListener("click", () => {
+    const geoCordInputValue = document.querySelector("#geoCordInput").value;
+
+    const result = normalizeCoord(geoCordInputValue);
+
+    document.querySelector("#geoCordDisplay").innerHTML = result;
+});
+
+/*******************************************************************************
+ * Problem 6: format any number of coordinates as a list in a string
+ *
+ * You are asked to format geographic lat, lng coordinates in a list using your
+ * normalizeCoord() function from problem 5.
+ *
+ * Where normalizeCoord() takes a single geographic coord, the formatCoords()
+ * function takes a list of any number of geographic coordinates, parses them,
+ * filters out any invalid coords, and creates a list.
+ *
+ * For example: given the following coords, "42.9755,-77.4369" and "[-62.1234, 42.9755]",
+ * a new list would be created of the following form "((42.9755, -77.4369), (42.9755, -62.1234))".
+ *
+ * Notice how the list has been enclosed in an extra set of (...) braces, and each
+ * formatted geographic coordinate is separated by a comma and space.
+ *
+ * The formatCoords() function can take any number of arguments, but they must all
+ * be strings.  If any of the values can't be parsed by normalizeCoord() (i.e., if
+ * an Error is thrown), skip the value.  For example:
+ *
+ * formatCoords("42.9755,-77.4369", "[-62.1234, 42.9755]", "300,-9000") should return
+ * "((42.9755, -77.4369), (42.9755, -62.1234))" and skip the invalid coordinate.
+ *
+******************************************************************************/
   
-  function normalizeCoord(value) {
-    // Replace this comment with your code...
-  }
-  
-  /*******************************************************************************
-   * Problem 6: format any number of coordinates as a list in a string
-   *
-   * You are asked to format geographic lat, lng coordinates in a list using your
-   * normalizeCoord() function from problem 5.
-   *
-   * Where normalizeCoord() takes a single geographic coord, the formatCoords()
-   * function takes a list of any number of geographic coordinates, parses them,
-   * filters out any invalid coords, and creates a list.
-   *
-   * For example: given the following coords, "42.9755,-77.4369" and "[-62.1234, 42.9755]",
-   * a new list would be created of the following form "((42.9755, -77.4369), (42.9755, -62.1234))".
-   *
-   * Notice how the list has been enclosed in an extra set of (...) braces, and each
-   * formatted geographic coordinate is separated by a comma and space.
-   *
-   * The formatCoords() function can take any number of arguments, but they must all
-   * be strings.  If any of the values can't be parsed by normalizeCoord() (i.e., if
-   * an Error is thrown), skip the value.  For example:
-   *
-   * formatCoords("42.9755,-77.4369", "[-62.1234, 42.9755]", "300,-9000") should return
-   * "((42.9755, -77.4369), (42.9755, -62.1234))" and skip the invalid coordinate.
-   *
-  
-   ******************************************************************************/
-  
-  function formatCoords(...values) {
-    // Replace this comment with your code...
-  }
+// function formatCoords(...values) {
+//     values.forEach((value) => {
+//         const newValue = value.match(/"(.*?)"/g).map(str => str.replace(/"/g, ""));
+        
+//         let newList = [];
+//         newValue.forEach((newVal) => {
+//             const cord =  normalizeCoord(newVal);
+//             console.log(cord)
+//             if (cord !== null) {
+//                 newList.push(cord);
+//             } 
+//         });
+
+//         return `"${newList}"`;
+
+//     });
+
+// }
+
+function formatCoords(...values) {
+    let newList = [];
+
+    values.forEach((value) => {
+        const matches = value.match(/"(.*?)"/g);
+        if (matches) {
+            const newValue = matches.map(str => str.replace(/"/g, ""));
+
+            newValue.forEach((newVal) => {
+                const cord = normalizeCoord(newVal);
+                if (cord !== null && cord !== undefined) {
+                    newList.push(cord);
+                }
+            });
+        }
+    });
+
+    return `"(${newList.join(", ")})"`;
+}
+
+const geoCordListbutton = document.querySelector("#geoCordListButton");
+geoCordListbutton.addEventListener("click", () => {
+    const geoCordListInputValue = document.querySelector("#geoCordListInput").value;
+
+    const result = formatCoords(geoCordListInputValue);
+
+    document.querySelector("#geoCordListDisplay").innerHTML = result;
+});
   
   /*******************************************************************************
    * Problem 7: determine MIME type from filename extension
