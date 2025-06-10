@@ -393,25 +393,6 @@ geoCordbutton.addEventListener("click", () => {
  * "((42.9755, -77.4369), (42.9755, -62.1234))" and skip the invalid coordinate.
  *
 ******************************************************************************/
-  
-// function formatCoords(...values) {
-//     values.forEach((value) => {
-//         const newValue = value.match(/"(.*?)"/g).map(str => str.replace(/"/g, ""));
-        
-//         let newList = [];
-//         newValue.forEach((newVal) => {
-//             const cord =  normalizeCoord(newVal);
-//             console.log(cord)
-//             if (cord !== null) {
-//                 newList.push(cord);
-//             } 
-//         });
-
-//         return `"${newList}"`;
-
-//     });
-
-// }
 
 function formatCoords(...values) {
     let newList = [];
@@ -442,112 +423,183 @@ geoCordListbutton.addEventListener("click", () => {
     document.querySelector("#geoCordListDisplay").innerHTML = result;
 });
   
-  /*******************************************************************************
-   * Problem 7: determine MIME type from filename extension
-   *
-   * Web browsers and servers exchange streams of bytes, which must be interpreted
-   * by the receiver based on their type.  For example, an HTML web page is
-   * plain text, while a JPG image is a binary sequence.
-   *
-   * The Content-Type header contains information about a resource's MIME type, see:
-   * https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type
-   *
-   * The MIME type is made-up of a `type` and a `subtype` separated by a `/` character.
-   * The type is general, for example, 'text' or 'video'.  The subtype is more
-   * specific, indicating the specific type of text, image, video, etc.  See:
-   * https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types
-   *
-   * A number of common types are used in web development:
-   *
-   * mimeFromFilename('/User/Documents/readme.txt') --> returns 'text/plain'
-   *
-   * Your mimeFromFilename() function should support all of the following extensions
-   * with and without the leading '.':
-   *
-   * - .html, .htm --> text/html
-   * - .css --> text/css
-   * - .js --> text/javascript
-   * - .jpg, .jpeg --> image/jpeg
-   * - .gif --> image/gif
-   * - .bmp --> image/bmp
-   * - .ico, .cur --> image/x-icon
-   * - .png --> image/png
-   * - .svg --> image/svg+xml
-   * - .webp --> image/webp
-   * - .mp3 --> audio/mp3
-   * - .wav --> audio/wav
-   * - .mp4 --> video/mp4
-   * - .webm --> video/webm
-   * - .json --> application/json
-   * - .mpeg --> video/mpeg
-   * - .csv --> text/csv
-   * - .ttf --> font/ttf
-   * - .woff --> font/woff
-   * - .zip --> application/zip
-   * - .avi --> video/x-msvideo
-   *
-   *
-   * NOTE: any other extension should use the `application/octet-stream` MIME type,
-   * to indicate that it is an unknown stream of bytes (e.g., binary file). You should
-   * also use `application/octet-stream` if the file has no extension.
-   *
+/*******************************************************************************
+ * Problem 7: determine MIME type from filename extension
+ *
+ * Web browsers and servers exchange streams of bytes, which must be interpreted
+ * by the receiver based on their type.  For example, an HTML web page is
+ * plain text, while a JPG image is a binary sequence.
+ *
+ * The Content-Type header contains information about a resource's MIME type, see:
+ * https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type
+ *
+ * The MIME type is made-up of a `type` and a `subtype` separated by a `/` character.
+ * The type is general, for example, 'text' or 'video'.  The subtype is more
+ * specific, indicating the specific type of text, image, video, etc.  See:
+ * https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types
+ *
+ * A number of common types are used in web development:
+ *
+ * mimeFromFilename('/User/Documents/readme.txt') --> returns 'text/plain'
+ *
+ * Your mimeFromFilename() function should support all of the following extensions
+ * with and without the leading '.':
+ *
+ * - .html, .htm --> text/html
+ * - .css --> text/css
+ * - .js --> text/javascript
+ * - .jpg, .jpeg --> image/jpeg
+ * - .gif --> image/gif
+ * - .bmp --> image/bmp
+ * - .ico, .cur --> image/x-icon
+ * - .png --> image/png
+ * - .svg --> image/svg+xml
+ * - .webp --> image/webp
+ * - .mp3 --> audio/mp3
+ * - .wav --> audio/wav
+ * - .mp4 --> video/mp4
+ * - .webm --> video/webm
+ * - .json --> application/json
+ * - .mpeg --> video/mpeg
+ * - .csv --> text/csv
+ * - .ttf --> font/ttf
+ * - .woff --> font/woff
+ * - .zip --> application/zip
+ * - .avi --> video/x-msvideo
+ *
+ *
+ * NOTE: any other extension should use the `application/octet-stream` MIME type,
+ * to indicate that it is an unknown stream of bytes (e.g., binary file). You should
+ * also use `application/octet-stream` if the file has no extension.
+ *
+ 
+******************************************************************************/
+
+function mimeFromFilename(filename) {
+
+    const trimmedFilename = filename.trim();
+
+    if (!trimmedFilename) {
+      return "Please enter a valid file name.";
+    }
+
+    const parts = filename.toLowerCase().split("/");
+
+    const wordExtension = parts[parts.length - 1];
+    const extension = wordExtension.split(".").pop();
+
+    switch (extension) {
+        case "html":
+        case "htm":
+          return "text/html";
+        case "txt":
+          return "text/plain";
+        case "css":
+          return "text/css";
+        case "js":
+          return "text/javascript";
+        case "jpg":
+        case "jpeg":
+          return "image/jpeg";
+        case "gif":
+          return "image/gif";
+        case "bmp":
+          return "image/bmp";
+        case "ico":
+        case "cur":
+          return "image/x-icon";
+        case "png":
+          return "image/png";
+        case "svg":
+          return "image/svg+xml";
+        case "webp":
+          return "image/webp";
+        case "mp3":
+          return "audio/mp3";
+        case "wav":
+          return "audio/wav";
+        case "mp4":
+          return "video/mp4";
+        case "webm":
+          return "video/webm";
+        case "json":
+          return "application/json";
+        case "mpeg":
+          return "video/mpeg";
+        case "csv":
+          return "text/csv";
+        case "ttf":
+          return "font/ttf";
+        case "woff":
+          return "font/woff";
+        case "zip":
+          return "application/zip";
+        case "avi":
+          return "video/x-msvideo";
+        default:
+          return "application/octet-stream";
+      }
+};
+
+document.querySelector("#mimeButton").addEventListener("click", function () {
+    const mimeInput = document.querySelector("#mimeInput").value;
+    const fileExtension = mimeFromFilename(mimeInput);
+    document.querySelector("#mimeDisplay").innerText = fileExtension;
+});
   
-   ******************************************************************************/
-  
-  function mimeFromFilename(filename) {
-    // Replace this comment with your code...
-    // NOTE: Use a switch statement in your solution.
-  }
-  
-  /*******************************************************************************
-   * Problem 8, Part 1: generate license text and link from license code.
-   *
-   * Images, videos, and other resources on the web are governed by copyright.
-   * Everything you find on the web is copyright to its creator automatically, and
-   * you cannot reuse it unless you are granted a license to do so.
-   *
-   * Different licenses exist to allow creators to share their work. For example,
-   * the Creative Commons licenses are a popular way to allow people to reuse
-   * copyright material, see https://creativecommons.org/licenses/.
-   *
-   * Below is a list of license codes, and the associated license text explaining the code:
-   *
-   * CC-BY: Creative Commons Attribution License
-   * CC-BY-NC: Creative Commons Attribution-NonCommercial License
-   * CC-BY-SA: Creative Commons Attribution-ShareAlike License
-   * CC-BY-ND: Creative Commons Attribution-NoDerivs License
-   * CC-BY-NC-SA: Creative Commons Attribution-NonCommercial-ShareAlike License
-   * CC-BY-NC-ND: Creative Commons Attribution-NonCommercial-NoDerivs License
-   *
-   * NOTE: any other licenseCode should use the URL https://choosealicense.com/no-permission/
-   * and the explanation text, "All Rights Reserved"
-   *
-   * Write a function, generateLicenseLink(), which takes a license code, and returns
-   * an HTML link to the appropriate license URL, and including the explanation text.
-   *
-   * For example:
-   *
-   * generateLicenseLink('CC-BY-NC') should return the following HTML string:
-   *
-   * '<a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial License</a>'
-   *
-   * The URL is generated based on the license code:
-   *
-   * - remove the `CC-` prefix
-   * - convert to lower case
-   * - place formatted license code within URL https://creativecommons.org/licenses/[...here]/4.0/
-   *
-   * Your generateLicenseLink() function should also accept an optional second argument,
-   * `targetBlank`.  If `targetBlank` is true, add ` target="_blank"` to your link
-   * so that the URL opens in a blank tab/window.
-   *
-   * You can read more about HTML links at https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a
-   *
-   ******************************************************************************/
-  
-  function generateLicenseLink(licenseCode, targetBlank) {
-    // Replace this comment with your code...
-  }
+/*******************************************************************************
+ * Problem 8, Part 1: generate license text and link from license code.
+ *
+ * Images, videos, and other resources on the web are governed by copyright.
+ * Everything you find on the web is copyright to its creator automatically, and
+ * you cannot reuse it unless you are granted a license to do so.
+ *
+ * Different licenses exist to allow creators to share their work. For example,
+ * the Creative Commons licenses are a popular way to allow people to reuse
+ * copyright material, see https://creativecommons.org/licenses/.
+ *
+ * Below is a list of license codes, and the associated license text explaining the code:
+ *
+ * CC-BY: Creative Commons Attribution License
+ * CC-BY-NC: Creative Commons Attribution-NonCommercial License
+ * CC-BY-SA: Creative Commons Attribution-ShareAlike License
+ * CC-BY-ND: Creative Commons Attribution-NoDerivs License
+ * CC-BY-NC-SA: Creative Commons Attribution-NonCommercial-ShareAlike License
+ * CC-BY-NC-ND: Creative Commons Attribution-NonCommercial-NoDerivs License
+ *
+ * NOTE: any other licenseCode should use the URL https://choosealicense.com/no-permission/
+ * and the explanation text, "All Rights Reserved"
+ *
+ * Write a function, generateLicenseLink(), which takes a license code, and returns
+ * an HTML link to the appropriate license URL, and including the explanation text.
+ *
+ * For example:
+ *
+ * generateLicenseLink('CC-BY-NC') should return the following HTML string:
+ *
+ * '<a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial License</a>'
+ *
+ * The URL is generated based on the license code:
+ *
+ * - remove the `CC-` prefix
+ * - convert to lower case
+ * - place formatted license code within URL https://creativecommons.org/licenses/[...here]/4.0/
+ *
+ * Your generateLicenseLink() function should also accept an optional second argument,
+ * `targetBlank`.  If `targetBlank` is true, add ` target="_blank"` to your link
+ * so that the URL opens in a blank tab/window.
+ *
+ * You can read more about HTML links at https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a
+ *
+ ******************************************************************************/
+// Task 8: Generate a License Link
+// Allow users to enter a license code (e.g., CC-BY-NC). On clicking a button, generate and display
+// an anchor (<a>) tag linking to the correct Creative Commons license page.
+
+
+function generateLicenseLink(licenseCode, targetBlank) {
+// Replace this comment with your code...
+}
   
   /*******************************************************************************
    * Problem 9 Part 1: convert a value to a Boolean (true or false)
