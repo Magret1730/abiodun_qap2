@@ -12,6 +12,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <!-- Using the keyword "defer" eliminated the use of "DOMContentLoaded" in script.js file-->
     <script src="./script.js" defer></script>
 </head>
 <body>
@@ -65,7 +66,7 @@
     </section>
 
     <!-- Task Seven -->
-    <section id="question3">
+    <section>
         <h3>Task Seven - Determine MIME Type from Filename</h3>
         <input type="text" name="mime" id="mimeInput" placeholder="Enter a Filename">
         <button id="mimeButton">Determine Filename</button>
@@ -73,11 +74,19 @@
     </section>
 
     <!-- Task Eight -->
-    <section id="question3">
+    <section>
         <h3>Task Eight - Generate a License Link</h3>
-        <input type="text" name="mime" id="mimeInput" placeholder="Enter a Filename">
-        <button id="mimeButton">Convert</button>
-        <div id="mimeDisplay"></div>
+        <input type="text" name="license" id="licenseInput" placeholder="Enter License Link">
+        <button id="licenseButton">Generate License Link</button>
+        <div id="licenseDisplay"></div>
     </section>
-</body>
+
+    <!-- Task Nine -->
+    <section>
+        <h3>Task Nine - Convert Values to Boolean</h3>
+        <input type="text" name="boolean" id="booleanInput" placeholder="Enter Boolean Value">
+        <button id="booleanButton">Convert to Boolean</button>
+        <div id="booleanDisplay"></div>
+    </section>
+    </body>
 </html>

@@ -6,10 +6,8 @@
  *
  *      Name: Abiodun Magret Oyedele
  *      Date: 8/6/2025
- *      Time: 12:45pm 
+ *      Time: 48hours
  */
-
-// alert("Good");
 
 // window.addEventListener("DOMContentLoaded", function () {
 /*******************************************************************************
@@ -273,7 +271,7 @@ dateStringButton.addEventListener("click", () => {
 // <div id="dateObjectDisplay"></div>
 // </section>
 
-  function toDateString(value) {
+function toDateString(value) {
     const answer = value.trim();
 
     const dateRegex = /^\d{4}\-\d{2}-\d{2}$/;
@@ -490,6 +488,7 @@ function mimeFromFilename(filename) {
 
     switch (extension) {
         case "html":
+            return "text/html";
         case "htm":
           return "text/html";
         case "txt":
@@ -499,6 +498,7 @@ function mimeFromFilename(filename) {
         case "js":
           return "text/javascript";
         case "jpg":
+            return "image/jpeg";
         case "jpeg":
           return "image/jpeg";
         case "gif":
@@ -506,6 +506,7 @@ function mimeFromFilename(filename) {
         case "bmp":
           return "image/bmp";
         case "ico":
+            return "image/x-icon";
         case "cur":
           return "image/x-icon";
         case "png":
@@ -570,9 +571,13 @@ document.querySelector("#mimeButton").addEventListener("click", function () {
  * NOTE: any other licenseCode should use the URL https://choosealicense.com/no-permission/
  * and the explanation text, "All Rights Reserved"
  *
+ * 
+ * 
  * Write a function, generateLicenseLink(), which takes a license code, and returns
  * an HTML link to the appropriate license URL, and including the explanation text.
  *
+ * 
+ * 
  * For example:
  *
  * generateLicenseLink('CC-BY-NC') should return the following HTML string:
@@ -592,67 +597,187 @@ document.querySelector("#mimeButton").addEventListener("click", function () {
  * You can read more about HTML links at https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a
  *
  ******************************************************************************/
-// Task 8: Generate a License Link
-// Allow users to enter a license code (e.g., CC-BY-NC). On clicking a button, generate and display
-// an anchor (<a>) tag linking to the correct Creative Commons license page.
 
+function generateLicenseLink(licenseCode, targetBlank=false) {
+    const codeLinks = {
+        "CC-BY": "Creative Commons Attribution License",
+        "CC-BY-NC": "Creative Commons Attribution-NonCommercial License",
+        "CC-BY-SA": "Creative Commons Attribution-ShareAlike License",
+        "CC-BY-ND": "Creative Commons Attribution-NoDerivs License",
+        "CC-BY-NC-SA": "Creative Commons Attribution-NonCommercial-ShareAlike License",
+        "CC-BY-NC-ND": "Creative Commons Attribution-NonCommercial-NoDerivs License"
+    }
 
-function generateLicenseLink(licenseCode, targetBlank) {
-// Replace this comment with your code...
+    if (codeLinks[licenseCode]) {
+        const splitValue = licenseCode.split("-");
+        splitValue.shift();
+        const joinedWords = splitValue.join("-").toLowerCase();
+
+        const anchorLink = `https://creativecommons.org/licenses/${joinedWords}/4.0/`;
+        const a = document.createElement("a");
+        a.href = anchorLink;
+        a.innerText = codeLinks[licenseCode];
+        a.target = targetBlank === true ? "_blank" : "";
+
+        return a;
+    }
+
 }
+
+document.querySelector("#licenseButton").addEventListener("click", function () {
+    const licenseInput = document.querySelector("#licenseInput").value;
+
+    const splittedValues = licenseInput.split(",");
+
+    const licenseCode = splittedValues[0];
+    const targetBlank = splittedValues[1];
+
+    const licenseLink = generateLicenseLink(licenseCode, targetBlank);
+    console.log(licenseLink);
+    // const stringLicenseLink = `"${licenseLink}"`;
+    // const string2LicenseLink = new String(licenseLink);
+    // console.log(stringLicenseLink)
+
+    // document.querySelector("#licenseDisplay").innerHTML = `${licenseLink}`;
+    // document.querySelector("#licenseDisplay").innerText = stringLicenseLink;
+    // document.querySelector("#licenseDisplay").innerHTML = stringLicenseLink;
+    // document.querySelector("#licenseDisplay").innerHTML = licenseLink;
+
+    // const code = document.createElement("code");
+    // console.log(code);
+    // code.appendChild(licenseLink);
+    // console.log(code);
+    // document.querySelector("#licenseDisplay").appendChild(code);
+
+    // I couldn't display the literal <a> tag on the page
+    document.querySelector("#licenseDisplay").appendChild(licenseLink);
+});
+
+/*******************************************************************************
+ * Problem 9 Part 1: convert a value to a Boolean (true or false)
+ *
+ * A dataset contains fields that indicate a value is true or false.  However,
+ * users have entered data in various formats and languages (English and French)
+ * over the years, and the data is a mess. For example, the dataset contains all
+ * of the following values:
+ *
+ * Yes, yes, YES, Y, Oui, oui, OUI, O, t, TRUE, true, True, vrai, V, VRAI, 1, 2, ...any positive number
+ * No, no, NO, Non, non, NON, N, n, f, FALSE, false, False, FAUX, faux, Faux, 0, -1, -2, ...any negative number
+ *
+ * Write a function pureBool() which takes a String, Number, or Boolean,
+ * and attempts to convert it into a pure Boolean value, according to these rules:
+ *
+ * 1. If the value is already a Boolean (true or false) return the value without conversion
+ * 2. If the value is one of the "true" type values, return `true` (Boolean)
+ * 3. If the value is one of the "false" type values, return `false` (Boolean)
+ * 4. If the value is none of the "true" or "false" values, throw an error with the error
+ * message, 'invalid value'.
+ *
+ ******************************************************************************/
+
+// Task 9: Convert Values to Boolean
+// Provide an input field where users enter different Boolean-like values (Yes, No, 1, 0, true, false).
+// On clicking a button, convert the value into a pure Boolean (true or false) and display the result.
+// <!-- Task Nine -->
+// <section>
+// <h3>Task Nine - Convert Values to Boolean</h3>
+//     <input type="text" name="boolean" id="booleanInput" placeholder="Enter boolean Link">
+//     <button id="booleanButton">Convert to Boolean</button>
+//     <div id="booleanDisplay"></div>
+// </section>
   
-  /*******************************************************************************
-   * Problem 9 Part 1: convert a value to a Boolean (true or false)
-   *
-   * A dataset contains fields that indicate a value is true or false.  However,
-   * users have entered data in various formats and languages (English and French)
-   * over the years, and the data is a mess. For example, the dataset contains all
-   * of the following values:
-   *
-   * Yes, yes, YES, Y, Oui, oui, OUI, O, t, TRUE, true, True, vrai, V, VRAI, 1, 2, ...any positive number
-   * No, no, NO, Non, non, NON, N, n, f, FALSE, false, False, FAUX, faux, Faux, 0, -1, -2, ...any negative number
-   *
-   * Write a function pureBool() which takes a String, Number, or Boolean,
-   * and attempts to convert it into a pure Boolean value, according to these rules:
-   *
-   * 1. If the value is already a Boolean (true or false) return the value without conversion
-   * 2. If the value is one of the "true" type values, return `true` (Boolean)
-   * 3. If the value is one of the "false" type values, return `false` (Boolean)
-   * 4. If the value is none of the "true" or "false" values, throw an error with the error
-   * message, 'invalid value'.
-   *
-   ******************************************************************************/
+function pureBool(value) {
+    const truthyValues = /^(yes|y|oui|o|t|true|vrai|v|\d*[1-9]\d*)$/i;
+    const falsyValues = /^(no|non|n|f|false|faux|0|-\d+)$/i;
+
+    // if (value.toLowerCase() === "true") {
+    //     return true;
+    // } else if (value.toLowerCase() === "false") {
+    //     return false;
+    // } else
+    if (truthyValues.test(value)) {
+        return true;
+    } else if (falsyValues.test(value)) {
+        return false;
+    } else {
+        return 'invalid value';
+    }
+}
+
+document.querySelector("#booleanButton").addEventListener("click", function () {
+    const booleanInput = document.querySelector("#booleanInput").value;
+    const booleanValue = pureBool(booleanInput);
+    document.querySelector("#booleanDisplay").innerText = booleanValue;
+});
   
-  function pureBool(value) {
-    // Replace this comment with your code...
-  }
+/*******************************************************************************
+ * Problem 9 Part 2: checking for all True or all False values in a normalized list
+ *
+ * Using your pureBool() function above, create three new functions to check
+ * if a list of arguments are all "true", partially "true", or all "false" values:
+ *
+ * every('Y', 'yes', 1) --> returns true
+ * any('Y', 'no', 1) --> returns true
+ * none('Y', 'invalid', 1) --> returns false
+ *
+ * Use try/catch syntax to avoid having your functions throw errors when pureBool()
+ * throws on invalid data.
+ ******************************************************************************/
   
-  /*******************************************************************************
-   * Problem 9 Part 2: checking for all True or all False values in a normalized list
-   *
-   * Using your pureBool() function above, create three new functions to check
-   * if a list of arguments are all "true", partially "true", or all "false" values:
-   *
-   * every('Y', 'yes', 1) --> returns true
-   * any('Y', 'no', 1) --> returns true
-   * none('Y', 'invalid', 1) --> returns false
-   *
-   * Use try/catch syntax to avoid having your functions throw errors when pureBool()
-   * throws on invalid data.
-   ******************************************************************************/
+function every(...values) {
+    try {
+        let newResult = [];
+        for (let value of values) {
+            const result = pureBool(value);
+            newResult.push(result);
+        }
+        if (newResult.includes(false)) {
+            console.log(false)
+        } else {
+            console.log(true)
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+every('Y', 'yes', 1);
+every('y', 'yes', -1);
   
-  function every() {
-    // Replace this comment with your code...
-  }
-  
-  function any() {
-    // Replace this comment with your code...
-  }
-  
-  function none() {
-    // Replace this comment with your code...
-  }
-  
+function any(...values) {
+    try {
+        let newResult = [];
+        for (let value of values) {
+            const result = pureBool(value);
+            newResult.push(result);
+        }
+        if (newResult.includes(true)) {
+            console.log(true);
+        } else {
+            console.log(flase);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+any('Y', 'no', 1);
+
+function none(...values) {
+    try {
+        let newResult = [];
+        for (let value of values) {
+            const result = pureBool(value);
+            newResult.push(result);
+        }
+        if (newResult.includes(true)) {
+            console.log(false);
+        } else {
+            console.log(true);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+none('Y', 'invalid', 1);
   /*******************************************************************************
    * Problem 10 - build a URL
    *
