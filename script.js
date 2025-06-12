@@ -7,6 +7,8 @@
  *      Name: Abiodun Magret Oyedele
  *      Date: 8/6/2025
  *      Time: 48hours
+ *      Online Resources Used: W3schools, google, stackOverflow, class lecture/notes
+ *      Difficulty Rate: 7/10. I am confident I solve simliar questions but then with the use of these resources.
  */
 
 // window.addEventListener("DOMContentLoaded", function () {
@@ -690,11 +692,6 @@ function pureBool(value) {
     const truthyValues = /^(yes|y|oui|o|t|true|vrai|v|\d*[1-9]\d*)$/i;
     const falsyValues = /^(no|non|n|f|false|faux|0|-\d+)$/i;
 
-    // if (value.toLowerCase() === "true") {
-    //     return true;
-    // } else if (value.toLowerCase() === "false") {
-    //     return false;
-    // } else
     if (truthyValues.test(value)) {
         return true;
     } else if (falsyValues.test(value)) {
@@ -731,6 +728,7 @@ function every(...values) {
             const result = pureBool(value);
             newResult.push(result);
         }
+
         if (newResult.includes(false)) {
             console.log(false)
         } else {
@@ -740,8 +738,8 @@ function every(...values) {
         console.log(error);
     }
 }
-every('Y', 'yes', 1);
-every('y', 'yes', -1);
+// every('Y', 'yes', 1);
+// every('y', 'yes', -1);
   
 function any(...values) {
     try {
@@ -750,6 +748,7 @@ function any(...values) {
             const result = pureBool(value);
             newResult.push(result);
         }
+
         if (newResult.includes(true)) {
             console.log(true);
         } else {
@@ -759,7 +758,7 @@ function any(...values) {
         console.log(error);
     }
 }
-any('Y', 'no', 1);
+// any('Y', 'no', 1);
 
 function none(...values) {
     try {
@@ -768,6 +767,7 @@ function none(...values) {
             const result = pureBool(value);
             newResult.push(result);
         }
+
         if (newResult.includes(true)) {
             console.log(false);
         } else {
@@ -777,60 +777,94 @@ function none(...values) {
         console.log(error);
     }
 }
-none('Y', 'invalid', 1);
-  /*******************************************************************************
-   * Problem 10 - build a URL
-   *
-   * Querying the iNaturalist Web API (https://api.inaturalist.org/v2/observations)
-   * for data involves formatting a URL in a particular way.  As we know might know, a URL can contain optional name=value pairs. For reference: read query strings on web :)
-   *
-   * For example:
-   *
-   *   https://www.store.com/search?q=dog includes q=dog
-   *
-   *   https://www.store.com?_encoding=UTF8&node=18521080011 includes
-   *   both _encoding=UTF8 and also node=18521080011, separated by &
-   *
-   * We will write a buildUrl() function to build a URL for the iNaturalist API
-   * based on arguments passed by the caller.
-   *
-   * The buildUrl() function accepts the following arguments:
-   *
-   * - query: a URI encoded search string, for example "butterfly" or "Horse-chestnut"
-   * - order: a string indicating sort order, with possible values of `ascending` or `descending`
-   * - count: a number from 1 to 50, indicating how many results to return per page
-   * - license: a string indicating which items to return (e.g., which license they use). Possible
-   *   values include: none, any, cc-by, cc-by-nc, cc-by-sa, cc-by-nd, cc-by-nc-sa, cc-by-nc-nd
-   *
-   * Write an implementation of buildUrl() that accepts arguments for all of the above
-   * parameters, validates them (e.g., count must be between 1 and 50, etc), and returns
-   * a properly formatted URL.
-   *
-   * For example:
-   *
-   * buildUrl('Monarch Butterfly', 'ascending', 25, 'cc-by') would return the following URL:
-   *
-   * https://api.inaturalist.org/v2/observations?query='Monarch%20Butterfly'&count=25&order=ascending&license=cc-by
-   *
-   * NOTE: if any of the values passed to buildUrl() are invalid, an Error should be thrown.
-   *
-   * NOTE: make sure you properly encode the query value, since URLs can't contain
-   * spaces or other special characters. HINT: use the encodeURIComponent() function
-   * to do this, see:
-   *
-   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent
-   *
-   * The following might be the parameters
-   *
-   *  "query" the query to use. Must be properly URI encoded
-   * "order" the sort order to use, must be one of `ascending` or `descending`
-   * "count" the number of results per page, must be 1-50
-   * "license" the license to use, must be one of none, any, cc-by, cc-by-nc, cc-by-sa, cc-by-nd, cc-by-nc-sa, cc-by-nc-nd
-   *
-   ******************************************************************************/
-  
-  function buildUrl(query, order, count, license) {
-    // Replace this comment with your code...
-    //returns the properly formatted iNaturlist URL
-  }
+// none('Y', 'invalid', 1);
+
+
+/*******************************************************************************
+ * Problem 10 - build a URL
+ *
+ * Querying the iNaturalist Web API (https://api.inaturalist.org/v2/observations)
+ * for data involves formatting a URL in a particular way.  As we know might know,
+ * a URL can contain optional name=value pairs. For reference: read query strings on web :)
+ *
+ * For example:
+ *
+ *   https://www.store.com/search?q=dog includes q=dog
+ *
+ *   https://www.store.com?_encoding=UTF8&node=18521080011 includes
+ *   both _encoding=UTF8 and also node=18521080011, separated by &
+ *
+ * We will write a buildUrl() function to build a URL for the iNaturalist API
+ * based on arguments passed by the caller.
+ *
+ * The buildUrl() function accepts the following arguments:
+ *
+ * - query: a URI encoded search string, for example "butterfly" or "Horse-chestnut"
+ * - order: a string indicating sort order, with possible values of `ascending` or `descending`
+ * - count: a number from 1 to 50, indicating how many results to return per page
+ * - license: a string indicating which items to return (e.g., which license they use). Possible
+ *   values include: none, any, cc-by, cc-by-nc, cc-by-sa, cc-by-nd, cc-by-nc-sa, cc-by-nc-nd
+ *
+ * Write an implementation of buildUrl() that accepts arguments for all of the above
+ * parameters, validates them (e.g., count must be between 1 and 50, etc), and returns
+ * a properly formatted URL.
+ *
+ * For example:
+ *
+ * buildUrl('Monarch Butterfly', 'ascending', 25, 'cc-by') would return the following URL:
+ *
+ * https://api.inaturalist.org/v2/observations?query='Monarch%20Butterfly'&count=25&order=ascending&license=cc-by
+ *
+ * NOTE: if any of the values passed to buildUrl() are invalid, an Error should be thrown.
+ *
+ * NOTE: make sure you properly encode the query value, since URLs can't contain
+ * spaces or other special characters. HINT: use the encodeURIComponent() function
+ * to do this, see:
+ *
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent
+ *
+ * The following might be the parameters
+ *
+ * "query" the query to use. Must be properly URI encoded
+ * "order" the sort order to use, must be one of `ascending` or `descending`
+ * "count" the number of results per page, must be 1-50
+ * "license" the license to use, must be one of none, any, cc-by, cc-by-nc, cc-by-sa, cc-by-nd, cc-by-nc-sa, cc-by-nc-nd
+ *
+ ******************************************************************************/
+
+function buildUrl(query, order, count, license) {
+    const baseURL = "https://api.inaturalist.org/v2/observations";
+
+    if (!query || typeof query !== "string") {
+        throw new Error("Invalid query");
+    }
+    const newQuery = encodeURIComponent(query.trim());
+
+    const validOrders = ["ascending", "descending"];
+    if (!validOrders.includes(order.trim())) {
+        throw new Error("Invalid order");
+    }
+
+    const parsedCount = parseInt(count.trim());
+    if (isNaN(parsedCount) || parsedCount < 1 || parsedCount > 50) {
+        throw new Error("Invalid count (must be 1-50)");
+    }
+
+    const licenseArray = ["cc-by", "cc-by-nc", "cc-by-sa", "cc-by-nd", "cc-by-nc-sa", "cc-by-nc-nd"];
+    if (!licenseArray.includes(license.trim())) {
+        throw new Error("Wrong license");
+    }
+
+    const newURL = `${baseURL}?query=${newQuery}&count=${parsedCount}&order=${order.trim()}&license=${license.trim()}`;
+    return newURL;
+}
+
+
+document.querySelector("#urlButton").addEventListener("click", function () {
+    const urlInput = document.querySelector("#urlInput").value;
+    const [query, order, count, license] = urlInput.split(",")
+
+    const urlValue = buildUrl(query, order, count, license);
+    document.querySelector("#urlDisplay").innerText = urlValue;
+});
 // });
